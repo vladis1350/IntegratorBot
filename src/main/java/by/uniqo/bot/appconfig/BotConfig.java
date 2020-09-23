@@ -1,7 +1,7 @@
 package by.uniqo.bot.appconfig;
 
 
-import by.uniqo.bot.Bot;
+import by.uniqo.bot.bean.Bot;
 import by.uniqo.bot.botapi.handlers.TelegramFacade;
 import lombok.Getter;
 import lombok.Setter;

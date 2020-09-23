@@ -1,6 +1,6 @@
 package by.uniqo.bot.botapi.handlers.fillingOrder;
 
-import by.uniqo.bot.Bot;
+import by.uniqo.bot.bean.Bot;
 import by.uniqo.bot.botapi.handlers.BotState;
 import by.uniqo.bot.botapi.handlers.InputMessageHandler;
 import by.uniqo.bot.cache.UserDataCache;
@@ -289,14 +289,32 @@ public class FillingOrderHandler implements InputMessageHandler {
         KeyboardRow row2 = new KeyboardRow();
         KeyboardRow row3 = new KeyboardRow();
         KeyboardRow row4 = new KeyboardRow();
-        row1.add(new KeyboardButton("Сделать заказ"));
-        row2.add(new KeyboardButton("Мой заказ"));
-        row3.add(new KeyboardButton("Помощь"));
-        row4.add(new KeyboardButton("Менеджер"));
+        KeyboardRow row5 = new KeyboardRow();
+        KeyboardRow row6 = new KeyboardRow();
+        KeyboardRow row7 = new KeyboardRow();
+        KeyboardRow row8 = new KeyboardRow();
+        KeyboardRow row9 = new KeyboardRow();
+        KeyboardRow row10 = new KeyboardRow();
+        row1.add(new KeyboardButton("Интернет-магазины и услуги"));
+        row2.add(new KeyboardButton("Страхование"));
+        row3.add(new KeyboardButton("Медицина"));
+        row4.add(new KeyboardButton("Телекоммуникации"));
+        row5.add(new KeyboardButton("Банки и финансы"));
+        row6.add(new KeyboardButton("Транспорт и туризм"));
+        row7.add(new KeyboardButton("Мода и красота"));
+        row8.add(new KeyboardButton("Еда"));
+        row9.add(new KeyboardButton("Недвижимость и Ритейл"));
+        row10.add(new KeyboardButton("Образование"));
         keyboard.add(row1);
         keyboard.add(row2);
         keyboard.add(row3);
         keyboard.add(row4);
+        keyboard.add(row5);
+        keyboard.add(row6);
+        keyboard.add(row7);
+        keyboard.add(row8);
+        keyboard.add(row9);
+        keyboard.add(row10);
         replyKeyboardMarkup.setKeyboard(keyboard);
         return replyKeyboardMarkup;
     }

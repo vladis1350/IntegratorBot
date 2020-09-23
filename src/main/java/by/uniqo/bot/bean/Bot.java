@@ -1,4 +1,4 @@
-package by.uniqo.bot;
+package by.uniqo.bot.bean;
 
 import by.uniqo.bot.botapi.handlers.TelegramFacade;
 import lombok.SneakyThrows;

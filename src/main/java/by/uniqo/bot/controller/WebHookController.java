@@ -1,6 +1,6 @@
 package by.uniqo.bot.controller;
 
-import by.uniqo.bot.Bot;
+import by.uniqo.bot.bean.Bot;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

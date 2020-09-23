@@ -48,29 +48,56 @@ public class StartOrderHandler implements InputMessageHandler {
     private InlineKeyboardMarkup getInlineMessageButtons() {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
 
-        InlineKeyboardButton buttonStartOrder = new InlineKeyboardButton().setText("Оформить заказ");
-        InlineKeyboardButton buttonPaymentAndDelivery = new InlineKeyboardButton().setText("Оплата и доставка");
-        InlineKeyboardButton buttonPromotionsAndDiscounts = new InlineKeyboardButton().setText("СКИДКИ И АКЦИИ");
-        InlineKeyboardButton buttonCallForManager = new InlineKeyboardButton().setText("Связаться с менеджером");
+        InlineKeyboardButton buttonInternetMagazineAndServices = new InlineKeyboardButton().setText("Интернет-магазины\n и сервисы");
+        InlineKeyboardButton buttonInsurance = new InlineKeyboardButton().setText("Страхование");
+        InlineKeyboardButton buttonMedicine = new InlineKeyboardButton().setText("Медицина");
+        InlineKeyboardButton buttonTelecommunications = new InlineKeyboardButton().setText("Телекоммуникации");
+        InlineKeyboardButton buttonBanksAndFinance = new InlineKeyboardButton().setText("Банки и финансы");
+        InlineKeyboardButton buttonTransportAndTourism = new InlineKeyboardButton().setText("Транспорт и туризм");
+        InlineKeyboardButton buttonFashionAndBeauty = new InlineKeyboardButton().setText("Мода и красота");
+        InlineKeyboardButton buttonFood = new InlineKeyboardButton().setText("Еда");
+        InlineKeyboardButton buttonRealEstateAndRetail = new InlineKeyboardButton().setText("Недвижимость и Ритейл");
+        InlineKeyboardButton buttonEducation = new InlineKeyboardButton().setText("Образование");
 
         //Every button must have callBackData, or else not work !
-        buttonStartOrder.setCallbackData("buttonStartOrder");
-        buttonPaymentAndDelivery.setCallbackData("buttonPaymentAndDelivery");
-        buttonPromotionsAndDiscounts.setCallbackData("buttonPromotionsAndDiscounts");
-        buttonCallForManager.setCallbackData("buttonCallForManager");
+        buttonInternetMagazineAndServices.setCallbackData("buttonInternetMagazineAndServices");
+
+        buttonInsurance.setCallbackData("buttonInsurance");
+        buttonMedicine.setCallbackData("buttonMedicine");
+        buttonTelecommunications.setCallbackData("buttonTelecommunications");
+        buttonBanksAndFinance.setCallbackData("buttonBanksAndFinance");
+        buttonTransportAndTourism.setCallbackData("buttonTransportAndTourism");
+        buttonFashionAndBeauty.setCallbackData("buttonFashionAndBeauty");
+        buttonFood.setCallbackData("buttonFood");
+        buttonRealEstateAndRetail.setCallbackData("buttonRealEstateAndRetail");
+        buttonEducation.setCallbackData("buttonEducation");
 
         List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList<>();
-        keyboardButtonsRow1.add(buttonStartOrder);
-        keyboardButtonsRow1.add(buttonPaymentAndDelivery);
+        keyboardButtonsRow1.add(buttonInternetMagazineAndServices);
+        keyboardButtonsRow1.add(buttonInsurance);
 
         List<InlineKeyboardButton> keyboardButtonsRow2 = new ArrayList<>();
-        keyboardButtonsRow2.add(buttonPromotionsAndDiscounts);
-        keyboardButtonsRow2.add(buttonCallForManager);
+        keyboardButtonsRow2.add(buttonMedicine);
+        keyboardButtonsRow2.add(buttonTelecommunications);
 
+        List<InlineKeyboardButton> keyboardButtonsRow3 = new ArrayList<>();
+        keyboardButtonsRow3.add(buttonBanksAndFinance);
+        keyboardButtonsRow3.add(buttonTransportAndTourism);
+
+        List<InlineKeyboardButton> keyboardButtonsRow4 = new ArrayList<>();
+        keyboardButtonsRow4.add(buttonFashionAndBeauty);
+        keyboardButtonsRow4.add(buttonFood);
+
+        List<InlineKeyboardButton> keyboardButtonsRow5 = new ArrayList<>();
+        keyboardButtonsRow5.add(buttonRealEstateAndRetail);
+        keyboardButtonsRow5.add(buttonEducation);
 
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
         rowList.add(keyboardButtonsRow1);
         rowList.add(keyboardButtonsRow2);
+        rowList.add(keyboardButtonsRow3);
+        rowList.add(keyboardButtonsRow4);
+        rowList.add(keyboardButtonsRow5);
 
         inlineKeyboardMarkup.setKeyboard(rowList);
 

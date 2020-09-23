@@ -1,15 +1,15 @@
 package by.uniqo.bot.botapi.handlers;
 
-import by.uniqo.bot.Bot;
+import by.uniqo.bot.bean.Bot;
+import by.uniqo.bot.bean.Client;
 import by.uniqo.bot.botapi.handlers.fillingOrder.UserProfileData;
 import by.uniqo.bot.cache.UserDataCache;
-import by.uniqo.bot.service.LocaleMessageService;
-import by.uniqo.bot.service.MainMenuService;
-import by.uniqo.bot.service.ReplyMessagesService;
+import by.uniqo.bot.service.*;
 import by.uniqo.bot.utils.Emojis;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
@@ -36,6 +36,11 @@ public class TelegramFacade {
     private Bot myBot;
     private ReplyMessagesService messagesService;
 
+    @Autowired
+    private BotResponsesService botResponsesService;
+
+    @Autowired
+    private ClientService clientService;
 
     public TelegramFacade(BotStateContext botStateContext, UserDataCache userDataCache, MainMenuService mainMenuService,
                           @Lazy Bot myBot, ReplyMessagesService messagesService) {
@@ -77,16 +82,37 @@ public class TelegramFacade {
         switch (inputMsg) {
             case "/start":
                 botState = BotState.ASK_START;
+                Client client = Client.builder()
+                        .chatId(message.getFrom().getId())
+                        .firstName(message.getFrom().getFirstName())
+                        .lastName(message.getFrom().getLastName())
+                        .userName(message.getFrom().getUserName())
+                        .build();
+                clientService.saveClient(client);
                 break;
-            case "Сделать заказ":
-                botState = BotState.FILLING_ORDER;
+            case "Интернет-магазины\n и услуги":
+                botState = BotState.INTERNET_MAGAZINE_AND_SERVICES;
                 break;
-            case "Мой заказ":
-                myBot.sendDocument(chatId, "Ваш заказ", getUsersProfile(userId));
-                botState = BotState.SHOW_USER_ORDER;
+            case "Страхование":
+                botState = BotState.INSURANCE;
                 break;
-            case "Помощь":
-                botState = BotState.SHOW_HELP_MENU;
+            case "Медицина":
+                botState = BotState.MEDICINE;
+                break;
+            case "Телекоммуникации":
+                botState = BotState.TELECOMMUNICATIONS;
+                break;
+            case "Банки и финансы":
+                botState = BotState.BANKS_AND_FINANCE;
+                break;
+            case "Транспорт и туризм":
+                botState = BotState.TRANSPORT_AND_TOURISM;
+                break;
+            case "Мода и красота":
+                botState = BotState.FASHION_AND_BEAUTY;
+                break;
+            case "Еда":
+                botState = BotState.FOOD;
                 break;
             default:
                 botState = userDataCache.getUsersCurrentBotState(userId);
@@ -110,18 +136,36 @@ public class TelegramFacade {
 
 
         //From Destiny choose buttons
-        if (buttonQuery.getData().equals("buttonStartOrder")) {
-            callBackAnswer = new SendMessage(chatId, messagesService.getReplyText("reply.askTotalNumber"));
+        if (buttonQuery.getData().equals("buttonInternetMagazineAndServices")) {
+            callBackAnswer = new SendMessage(chatId, botResponsesService.getBotResponseByTag("tellAboutMagazineAndServices"));
 
-            userDataCache.setUsersCurrentBotState(userId, BotState.ASK_TAPESCOLOR);
-        } else if (buttonQuery.getData().equals("buttonPromotionsAndDiscounts")) {
-            callBackAnswer = sendAnswerCallbackQuery("У нас для вас скидки", false, buttonQuery);
-        } else if (buttonQuery.getData().equals("buttonPaymentAndDelivery")) {
-            callBackAnswer = new SendMessage(chatId, messagesService.getReplyText("reply.PaymentAndDelivery"));
+        } else if (buttonQuery.getData().equals("buttonInsurance")) {
+            callBackAnswer = new SendMessage(chatId, botResponsesService.getBotResponseByTag("tellAboutInsurance"));
 
-        } else if (buttonQuery.getData().equals("buttonCallForManager")) {
-            callBackAnswer = sendAnswerCallbackQuery("+375xx xxx xx xx", true, buttonQuery);
-            //From menus in additional services
+        } else if (buttonQuery.getData().equals("buttonMedicine")) {
+            callBackAnswer = new SendMessage(chatId, botResponsesService.getBotResponseByTag("tellAboutMedicine"));
+
+        } else if (buttonQuery.getData().equals("buttonTelecommunications")) {
+            callBackAnswer = new SendMessage(chatId, botResponsesService.getBotResponseByTag("tellAboutTelecommunications"));
+
+        } else if (buttonQuery.getData().equals("buttonFashionAndBeauty")) {
+            callBackAnswer = new SendMessage(chatId, botResponsesService.getBotResponseByTag("tellAboutFashionAndBeauty"));
+
+        } else if (buttonQuery.getData().equals("buttonTransportAndTourism")) {
+            callBackAnswer = new SendMessage(chatId, botResponsesService.getBotResponseByTag("tellAboutTransportAndTourism"));
+
+        } else if (buttonQuery.getData().equals("buttonBanksAndFinance")) {
+            callBackAnswer = new SendMessage(chatId, botResponsesService.getBotResponseByTag("tellAboutBanksAndFinance"));
+
+        } else if (buttonQuery.getData().equals("buttonFood")) {
+            callBackAnswer = new SendMessage(chatId, botResponsesService.getBotResponseByTag("tellAboutFood"));
+
+        } else if (buttonQuery.getData().equals("buttonRealEstateAndRetail")) {
+            callBackAnswer = new SendMessage(chatId, botResponsesService.getBotResponseByTag("tellAboutRealEstateAndRetail"));
+
+        } else if (buttonQuery.getData().equals("buttonEducation")) {
+            callBackAnswer = new SendMessage(chatId, botResponsesService.getBotResponseByTag("tellAboutEducation"));
+
         }  else if (buttonQuery.getData().equals("buttonStars")) {
             UserProfileData userProfileData = userDataCache.getUserProfileData(userId);
             userProfileData.setStars("Да");
